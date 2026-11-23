@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>OrgShield report: admin@acme.example (sample data)</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 960px; margin: 2rem auto; padding: 0 1rem; color: #1f2937; }
+  .score { display: flex; gap: 2rem; align-items: center; padding: 1.5rem; border: 1px solid #e5e7eb; border-radius: 12px; }
+  .grade { font-size: 4rem; font-weight: 700; }
+  .finding { border: 1px solid #e5e7eb; border-radius: 10px; padding: 1rem 1.25rem; margin: 1rem 0; }
+  .sev { display: inline-block; color: #fff; font-size: .75rem; font-weight: 700; padding: .15rem .5rem; border-radius: 4px; }
+  table { border-collapse: collapse; width: 100%; } td, th { border-bottom: 1px solid #e5e7eb; padding: .5rem; text-align: left; }
+  .failed { color: #b42318; } .passed { color: #067647; } .skipped { color: #6b7280; }
+</style>
+</head>
+<body>
+  <h1>OrgShield security report</h1>
+  <p>Org: <strong>admin@acme.example (sample data)</strong> · Generated 2026-11-23T05:00:02.116Z</p>
+  <section class="score">
+    <div class="grade">F</div>
+    <div>
+      <div><strong>Score:</strong> 50/100</div>
+      <div>Critical 1 · High 2 · Medium 2 · Low 0 · Info 1</div>
+    </div>
+  </section>
+  <h2>Checks</h2>
+  <table><thead><tr><th>Check</th><th>Status</th><th>Findings</th></tr></thead><tbody><tr><td>Privileged permission holders</td><td class="failed">failed</td><td>2</td></tr><tr><td>Dormant privileged users</td><td class="failed">failed</td><td>1</td></tr><tr><td>Connected app exposure</td><td class="failed">failed</td><td>2</td></tr><tr><td>Guest user object access</td><td class="passed">passed</td><td>0</td></tr><tr><td>Organization-wide sharing defaults</td><td class="failed">failed</td><td>1</td></tr></tbody></table>
+  <h2>Findings</h2>
+  
+    <article class="finding">
+      <div class="sev" style="background:#b42318">CRITICAL</div>
+      <h3>9 active user(s) hold &quot;Modify All Data&quot;</h3>
+      <p>Users with Modify All Data can create, edit and delete every record in the org regardless of sharing. Granted via: Profile: System Administrator. This exceeds the threshold of 5.</p>
+      <p><strong>Fix:</strong> Remove Modify All Data from profiles, grant it only through a small, reviewed permission set, and recertify holders quarterly.</p>
+      <details><summary>9 affected</summary><ul><li>admin1@acme.example</li><li>admin2@acme.example</li><li>admin3@acme.example</li><li>admin4@acme.example</li><li>admin5@acme.example</li><li>admin6@acme.example</li><li>admin7@acme.example</li><li>admin8@acme.example</li><li>admin9@acme.example</li></ul></details>
+    </article>
+    <article class="finding">
+      <div class="sev" style="background:#d9480f">HIGH</div>
+      <h3>1 privileged user(s) inactive for 90+ days</h3>
+      <p>Dormant accounts with org-wide data access are a prime takeover target because nobody notices when they are used.</p>
+      <p><strong>Fix:</strong> Deactivate or freeze these users, or remove their privileged access until it is needed again.</p>
+      <details><summary>1 affected</summary><ul><li>former.contractor@acme.example (last login: 2026-05-27T05:00:02.115Z)</li></ul></details>
+    </article>
+    <article class="finding">
+      <div class="sev" style="background:#d9480f">HIGH</div>
+      <h3>1 connected app(s) let any user self-authorize</h3>
+      <p>These apps accept OAuth from any user rather than admin-approved users only. 1 of them have active tokens.</p>
+      <p><strong>Fix:</strong> Set &quot;Permitted Users&quot; to &quot;Admin approved users are pre-authorized&quot; and grant access through permission sets.</p>
+      <details><summary>1 affected</summary><ul><li>Legacy Data Export</li></ul></details>
+    </article>
+    <article class="finding">
+      <div class="sev" style="background:#b08800">MEDIUM</div>
+      <h3>2 OAuth token(s) unused for 90+ days</h3>
+      <p>Long-lived unused refresh tokens keep API access open with no business need.</p>
+      <p><strong>Fix:</strong> Revoke stale tokens and set a refresh token expiration policy on each connected app.</p>
+      <details><summary>1 affected</summary><ul><li>Legacy Data Export: 2 token(s)</li></ul></details>
+    </article>
+    <article class="finding">
+      <div class="sev" style="background:#b08800">MEDIUM</div>
+      <h3>1 sensitive object(s) are Public Read/Write internally</h3>
+      <p>Every internal user can edit every record of these objects, which defeats role-based access.</p>
+      <p><strong>Fix:</strong> Move the default to Private or Public Read Only and open access with role hierarchy and sharing rules.</p>
+      <details><summary>1 affected</summary><ul><li>Account: ReadWrite</li></ul></details>
+    </article>
+    <article class="finding">
+      <div class="sev" style="background:#6b7280">INFO</div>
+      <h3>3 active user(s) hold &quot;View All Data&quot;</h3>
+      <p>Users with View All Data can read and export every record in the org regardless of sharing. Granted via: Profile: System Administrator.</p>
+      <p><strong>Fix:</strong> Holder count is within threshold. Keep recertifying holders periodically.</p>
+      <details><summary>3 affected</summary><ul><li>admin1@acme.example</li><li>admin2@acme.example</li><li>admin3@acme.example</li></ul></details>
+    </article>
+</body>
+</html>

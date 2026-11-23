@@ -1,0 +1,54 @@
+{
+  "name": "sf-orgshield",
+  "version": "0.1.0",
+  "description": "Salesforce CLI plugin that audits an org for risky permissions, connected app exposure, guest access and sharing defaults, and produces a scored security report.",
+  "author": "Pavan Koppula",
+  "license": "MIT",
+  "type": "module",
+  "main": "lib/index.js",
+  "files": [
+    "lib",
+    "oclif.manifest.json"
+  ],
+  "keywords": [
+    "salesforce",
+    "sf-plugin",
+    "sfdx-plugin",
+    "security",
+    "audit",
+    "connected-apps",
+    "permissions"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "build": "tsc -p .",
+    "test": "tsx --test test/*.test.ts",
+    "clean": "rm -rf lib"
+  },
+  "dependencies": {
+    "@oclif/core": "^4",
+    "@salesforce/core": "^8",
+    "@salesforce/sf-plugins-core": "^12"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "tsx": "^4",
+    "typescript": "^5"
+  },
+  "oclif": {
+    "commands": "./lib/commands",
+    "bin": "sf",
+    "topicSeparator": " ",
+    "topics": {
+      "orgshield": {
+        "description": "Audit a Salesforce org's security posture."
+      }
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pavankoppula92/sf-orgshield.git"
+  }
+}
